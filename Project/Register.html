@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./css/bootstrap.css" rel="stylesheet">
+    <script>
+        function validate() {
+            let fullname = document.getElementById("fullname").value;
+            let email = document.getElementById("email").value;
+            let password = document.getElementById("password").value;
+            let user = {
+                id: Number(new Date()),
+                fullname: fullname,
+                email: email,
+                password: password
+            }
+            let users = localStorage.getItem("usersLocastorage") ? JSON.parse(localStorage.getItem("usersLocastorage")) : []; // ternary operator
+            users.push(user);
+            if (fullname == "") {
+                alert("Please enter fullname");
+                return false;
+            } else if (email == "") {
+                alert("Please enter email");
+                return false;
+            }
+            else if (password == "") {
+                alert("Please enter password");
+                return false;
+            }
+            localStorage.setItem("usersLocastorage", JSON.stringify(users)); // key and value pair
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-xxl-6">
+                <h1>Register Page</h1>
+                <form action="./RegisterSuccess.html" method="get" onsubmit="return validate()">
+                    Fullname <input class="form-control" type="text" name="fullname" id="fullname" autocomplete="off">
+                    Email <input class="form-control" type="email" name="email" id="email">
+                    Password <input class="form-control" type="password" name="password" id="password">
+                    Confirm Password <input class="form-control" type="password" name="conrimPassword"
+                        id="conrimPassword">
+                    <input type="submit" class="btn btn-primary mt-2" value="Register">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
