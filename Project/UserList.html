@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>User List</title>
+  <link href="./css/bootstrap.css" rel="stylesheet" />
+  <script src="./js/bootstrap.bundle.js"></script>
+  <script src="./js/script.js"></script>
+  <!-- Own -->
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="GroupChat.html">Group Chat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./UserList.html">Manage Users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./DocumentList.html">Manage Documents</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="./Welcome.html">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-4">
+    <h1>User List</h1>
+    <table id="userTable" class="table table-hover table-striped">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+      <script>
+        // To fetch the users from local Storage
+        const storedUsers = JSON.parse(
+          localStorage.getItem("usersLocastorage")
+        );
+        const table = document.getElementById("userTable");
+        for (let i = 0; i < storedUsers.length; i++) {
+          const user = storedUsers[i];
+          if (
+            user.fullname == "" ||
+            user.fullname == "undefined" ||
+            user.email == ""
+          ) {
+          } else {
+            document.write(`<tr><td>${user.fullname}</td>
+                                  <td>${user.email}</td>
+                                   <td><a href="./EditUser.html?id=${user.id}">Edit</a> | <a data-bs-toggle="modal" data-bs-target="#deleteModal" onclick="deleteUserId(${user.id})" href="">Delete</a></td>
+                             </tr>
+                        `);
+          }
+        }
+        document.write(`</table>`);
+      </script>
+    </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              Confirm User Deletion
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">Are you sure?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" onclick="deleteUser()" data-bs-dismiss="modal">
+              OK
+            </button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
